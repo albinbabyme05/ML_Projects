@@ -1,0 +1,158 @@
+# ---------------------------
+# OS / Editor junk
+# ---------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.code-workspace
+
+# ---------------------------
+# Python basics
+# ---------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.python-version
+
+# Virtual envs
+.env
+.env*/
+.venv
+.venv*/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+pip-log.txt
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+.mypy_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.ruff_cache/
+.pyre/
+.pyright/
+.cache/
+
+# ---------------------------
+# Notebooks
+# ---------------------------
+.ipynb_checkpoints/
+# Optional: outputs saved by some tools
+*.nbconvert.ipynb
+*.nb.html
+
+# ---------------------------
+# Data & artifacts (keep code clean)
+# (Uncomment specific lines if you DO want to track small sample files)
+# ---------------------------
+data/
+datasets/
+raw_data/
+tmp/
+temp/
+outputs/
+artifacts/
+checkpoints/
+experiments/
+reports/
+
+# Common data formats
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.orc
+*.h5
+*.hdf5
+*.mat
+*.jsonl
+*.arrow
+
+# Numpy / pickle blobs
+*.npy
+*.npz
+*.pkl
+*.joblib
+
+# ---------------------------
+# Models / weights
+# ---------------------------
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.tflite
+*.pb
+*.h5
+*.sav
+
+# TensorFlow / Keras
+# (TF event logs and SavedModel folders)
+events.out.tfevents.*
+saved_model.pb
+**/variables/variables.*
+**/assets/
+
+# ---------------------------
+# Experiment trackers & logs
+# ---------------------------
+logs/
+*.log
+wandb/
+mlruns/
+runs/
+lightning_logs/
+tb_logs/
+
+# ---------------------------
+# Secrets & local config
+# ---------------------------
+*.env
+.env.*
+!*.env.example
+*.ini
+*.cfg
+*.toml.local
+*.yaml.local
+*.yml.local
+secrets/
+credentials/
+token_*.txt
+# Virtual environment
+.venv/
+env/
+.mlvenv/
+
+# ---------------------------
+# Images & large media (optional)
+# uncomment if you don’t want raw images in git
+# ---------------------------
+# images/
+# *.png
+# *.jpg
+# *.jpeg
+# *.tif
+# *.tiff
+# *.bmp
+
+# ---------------------------
+# Jupyter/VSCode junk folders some tools create
+# ---------------------------
+.jupyter/
+.ipython/
