@@ -71,7 +71,7 @@ experiments/
 reports/
 
 # Common data formats
-*.csv
+
 *.tsv
 *.xlsx
 *.xls
