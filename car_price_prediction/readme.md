@@ -18,25 +18,6 @@ It provides a modern, colorful UI with a car background, previous-results histor
 
 ---
 
-## 🏗️ Project Structure
-
-\`\`\`
-CAR PRICE WEB APP/
-│
-├── app.py                  # Flask backend logic
-│
-├── templates/
-│   └── index.html          # Frontend layout (HTML + Jinja2)
-│
-├── static/
-│   ├── style.css           # Custom CSS styling
-│   └── img/
-│       └── car_bg.jpg      # Background image
-│
-└── model/
-    └── car_price_model.joblib   # Your trained ML model (example)
-\`\`\`
-
 
 
 2️⃣ **Install dependencies**
@@ -70,13 +51,7 @@ A simple REST endpoint is also available for programmatic predictions:
 
 ---
 
-## 🖌️ UI Preview
 
-- **Hero Section:** Gradient background with car image.
-- **Tabs:** Previous Results (colorful) + Model Used.
-- **Buttons:** Predict | Reset Form | Clear History.
-
----
 
 ## 📸 Screenshot 
 <img width="1562" height="1065" alt="1" src="https://github.com/user-attachments/assets/33bedc59-3b9a-4ece-b6f5-54a1a1c23413" />
@@ -85,13 +60,6 @@ A simple REST endpoint is also available for programmatic predictions:
 
 ---
 
-## 🧑‍💻 Author
-**Albin Baby**  
-AI Developer | Machine Learning Engineer  
-📧 albinbabyme05@gmail.com  
-🌍 Ludwigsburg, Germany
-
----
 
 ## 📜 License
 This project is for educational and demonstration purposes only.
