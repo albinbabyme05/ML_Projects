@@ -1,4 +1,4 @@
-echo "# 🚗 Car Price Prediction Web App
+# 🚗 Car Price Prediction Web App
 
 This is a Flask-based web application that predicts the **selling price of a car** based on input features such as present price, kilometers driven, fuel type, seller type, transmission, owner count, and vehicle age.
 
