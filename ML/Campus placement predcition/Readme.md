@@ -52,6 +52,7 @@ USAGE
 OUTPUT
 ------------------------------------------------------------
 <img width="1643" height="1066" alt="placement_predcition" src="https://github.com/user-attachments/assets/744aab04-e03e-4a73-a4fe-f350dbbb1c42" />
+<img width="1855" height="1047" alt="2" src="https://github.com/user-attachments/assets/63e58e29-199c-4ec4-b760-daee542caba7" />
 
 
 ------------------------------------------------------------
