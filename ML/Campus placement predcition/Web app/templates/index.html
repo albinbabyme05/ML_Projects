@@ -1,0 +1,198 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Campus Placement Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Campus Placement Prediction</h1>
+      <p class="sub">Select a model, enter inputs, and predict.</p>
+    </header>
+
+    <main class="grid">
+      <section class="card form-card">
+        <h2>Manual Input</h2>
+        <form action="{{ url_for('predict') }}" method="POST" id="predict-form">
+          <input type="hidden" name="model_name" id="hidden-model-name" value="{{ selected_model }}">
+          <div class="form-grid">
+            <div class="field">
+              <label>Gender</label>
+              <select name="gender">
+                <option value="" selected disabled>-- select --</option>
+                <option value="1">Male (1)</option>
+                <option value="0">Female (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>SSC %</label>
+              <input type="number" step="0.1" name="ssc_p" placeholder="e.g. 67.0">
+            </div>
+            <div class="field">
+              <label>SSC Board</label>
+              <select name="ssc_b">
+                <option value="" selected disabled>-- select --</option>
+                <option value="1">Central (1)</option>
+                <option value="0">Others (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>HSC %</label>
+              <input type="number" step="0.1" name="hsc_p" placeholder="e.g. 91.0">
+            </div>
+            <div class="field">
+              <label>HSC Board</label>
+              <select name="hsc_b">
+                <option value="" selected disabled>-- select --</option>
+                <option value="1">Central (1)</option>
+                <option value="0">Others (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>HSC Stream</label>
+              <select name="hsc_s">
+                <option value="" selected disabled>-- select --</option>
+                <option value="2">Science (2)</option>
+                <option value="1">Commerce (1)</option>
+                <option value="0">Arts (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Degree %</label>
+              <input type="number" step="0.1" name="degree_p" placeholder="e.g. 58.0">
+            </div>
+            <div class="field">
+              <label>Degree Type</label>
+              <select name="degree_t">
+                <option value="" selected disabled>-- select --</option>
+                <option value="2">Sci & Tech (2)</option>
+                <option value="1">Comm & Mgmt (1)</option>
+                <option value="0">Others (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Work Experience</label>
+              <select name="workex">
+                <option value="" selected disabled>-- select --</option>
+                <option value="1">Yes (1)</option>
+                <option value="0">No (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>eTest %</label>
+              <input type="number" step="0.1" name="etest_p" placeholder="e.g. 55.0">
+            </div>
+            <div class="field">
+              <label>Specialisation</label>
+              <select name="specialisation">
+                <option value="" selected disabled>-- select --</option>
+                <option value="1">Mkt & HR (1)</option>
+                <option value="0">Mkt & Fin (0)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>MBA %</label>
+              <input type="number" step="0.1" name="mba_p" placeholder="e.g. 55.8">
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn primary">Predict</button>
+            <form action="{{ url_for('reset_form') }}" method="POST" style="display:inline">
+              <button type="submit" class="btn">Reset Form</button>
+            </form>
+          </div>
+        </form>
+      </section>
+
+      <aside class="card side-card">
+        <h2>Model & Accuracy</h2>
+        <div class="field">
+          <label>Choose Model</label>
+          <select id="model-select">
+            {% for m in model_names %}
+              <option value="{{ m }}" {% if m == selected_model %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="accuracy">
+          <div class="accuracy-value" id="accuracy-value">
+            {% if selected_model in model_scores %}{{ model_scores[selected_model] }}%{% else %}—{% endif %}
+          </div>
+          <div class="accuracy-label">Accuracy</div>
+        </div>
+      </aside>
+    </main>
+
+    {% if history and history|length > 0 %}
+    <section class="card result-card">
+      <h2>Prediction</h2>
+      <div class="result-row">
+        <div class="pill {{ 'ok' if history[0].prediction == 'Placed' else 'warn' }}">{{ history[0].prediction }}</div>
+        {% if history[0].confidence is not none %}
+          <div class="conf">{{ history[0].confidence }}%</div>
+        {% endif %}
+        <div class="meta">{{ history[0].model }} • {{ history[0].ts }}</div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="card history-card">
+      <div class="history-header">
+        <h2>History</h2>
+        <form action="{{ url_for('reset_history') }}" method="POST">
+          <button type="submit" class="btn danger">Reset History</button>
+        </form>
+      </div>
+      {% if history and history|length > 0 %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Model</th>
+              <th>Prediction</th>
+              <th>Confidence</th>
+              <th>Inputs</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rec in history %}
+              <tr>
+                <td>{{ rec.ts }}</td>
+                <td>{{ rec.model }}</td>
+                <td class="pill {{ 'ok' if rec.prediction == 'Placed' else 'warn' }}">{{ rec.prediction }}</td>
+                <td>{% if rec.confidence is not none %}{{ rec.confidence }}%{% else %}—{% endif %}</td>
+                <td class="inputs-cell">
+                  <details>
+                    <summary>View</summary>
+                    <pre>{{ rec.inputs | tojson(indent=2) }}</pre>
+                  </details>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="muted">No predictions yet.</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <script>
+    const modelSelect = document.getElementById('model-select');
+    const hiddenModel = document.getElementById('hidden-model-name');
+    const accEl = document.getElementById('accuracy-value');
+    const modelScores = {{ json_model_scores | safe }};
+    modelSelect.addEventListener('change', () => {
+      hiddenModel.value = modelSelect.value;
+      const m = modelSelect.value;
+      accEl.textContent = (m in modelScores) ? (modelScores[m] + "%") : "—";
+    });
+  </script>
+</body>
+</html>
