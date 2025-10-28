@@ -4,3 +4,7 @@ NumPy==1.26.4
 Pandas==2.2.3
 scikit-learn==1.5.2
 Matplotlib==3.9.2
+
+protobuf<4
+wrapt==1.14.1
+h5py<3.8
